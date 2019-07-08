@@ -60,7 +60,7 @@ def simpleSmtpSendGames(smtpAddress, email, email_password, targetEmail, freegam
     smtpClient.ehlo()
     smtpClient.starttls()
     smtpClient.login(email, email_password)
-    smtpClient.sendmail(email, targetEmail, "Subject: [Automated] Games Scraped from Reddit! \n"
+    smtpClient.sendmail(email, targetEmail, "Subject: [Automated] Games Scraped from Reddit! (Yell at Kyle to unsubscribe) \n"
                         + prettyFormatGames(freegames))
     smtpClient.quit()
 
@@ -103,4 +103,6 @@ if __name__ == '__main__':  # example use
     prettyPrintGames(gameList)
 
     # exampleSmtpSendGames
-    simpleSmtpSendGames('smtp.gmail.com', secure.email, secure.email_pass, secure.email, gameList)
+    for email in secure.email_list:
+        simpleSmtpSendGames('smtp.gmail.com', secure.email, secure.email_pass, email, gameList)
+        time.sleep(10) #no rapid fire spamming
